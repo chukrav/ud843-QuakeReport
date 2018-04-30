@@ -8,19 +8,21 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="18dp"
         tools:text="5.6" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        tools:text="San Francisco" />
+        tools:text="San Francisco"
+        android:textSize="18dp"/>
 
     <TextView
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        tools:text="14 Feb, 2018" />
+        tools:text="14 Feb, 2018"
+        android:textSize="18dp"/>
 
 </LinearLayout>
