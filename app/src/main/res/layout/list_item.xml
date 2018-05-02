@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="8dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/txt_magnitude"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
+        android:textSize="16dp"
         tools:text="5.6" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         tools:text="San Francisco"
-        android:textSize="18dp"/>
+        android:textSize="16dp"/>
 
     <TextView
         android:id="@+id/txt_date"
@@ -27,6 +27,6 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         tools:text="14 Feb, 2018"
-        android:textSize="18dp"/>
+        android:textSize="16dp"/>
 
 </LinearLayout>
