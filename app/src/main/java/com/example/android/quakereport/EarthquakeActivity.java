@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
-    public static final String LOG_TAG = EarthquakeActivity.class.getName();
+//    public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +32,21 @@ public class EarthquakeActivity extends AppCompatActivity {
 
         // Create a fake list of earthquake locations.
 //        ArrayList<String> earthquakes = new ArrayList<>();
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
-        earthquakes.add(new Earthquake("7.2", "San Francisco", "2 Feb, 2016"));
-        earthquakes.add(new Earthquake("7.2", "London", "2 Feb, 2016"));
-        earthquakes.add(new Earthquake("7.2", "Tokyo", "2 Feb, 2016"));
-        earthquakes.add(new Earthquake("7.2", "Mexico City", "2 Feb, 2016"));
-        earthquakes.add(new Earthquake("7.2", "Moscow", "2 Feb, 2016"));
-        earthquakes.add(new Earthquake("7.2", "Rio de Janeiro", "2 Feb, 2016"));
-        earthquakes.add(new Earthquake("7.2", "Paris", "2 Feb, 2016"));
 
+//        ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
+//        earthquakes.add(new Earthquake("7.2", "San Francisco", "2 Feb, 2016"));
+//        earthquakes.add(new Earthquake("7.2", "London", "2 Feb, 2016"));
+//        earthquakes.add(new Earthquake("7.2", "Tokyo", "2 Feb, 2016"));
+//        earthquakes.add(new Earthquake("7.2", "Mexico City", "2 Feb, 2016"));
+//        earthquakes.add(new Earthquake("7.2", "Moscow", "2 Feb, 2016"));
+//        earthquakes.add(new Earthquake("7.2", "Rio de Janeiro", "2 Feb, 2016"));
+//        earthquakes.add(new Earthquake("7.2", "Paris", "2 Feb, 2016"));
+        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+//
         EarthquakeItemAdapter earthquakeItemAdapter = new EarthquakeItemAdapter(this, earthquakes);
 
         // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list_item);
+        ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
         // Create a new {@link ArrayAdapter} of earthquakes
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -52,6 +54,7 @@ public class EarthquakeActivity extends AppCompatActivity {
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
+
         earthquakeListView.setAdapter(earthquakeItemAdapter);
     }
 }
