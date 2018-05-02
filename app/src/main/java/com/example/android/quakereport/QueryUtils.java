@@ -52,17 +52,16 @@ public class QueryUtils {
             JSONObject root = new JSONObject(SAMPLE_JSON_RESPONSE);
 //            JSONArray readerArray = new JSONArray(SAMPLE_JSON_RESPONSE);
             JSONArray features = root.getJSONArray("features");
-            SimpleDateFormat sf = new SimpleDateFormat("MMM, dd, yyyy HH:mm");
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             for (int i = 0; i < features.length(); ++i) {
                 JSONObject tmp = (JSONObject) features.get(i);
                 JSONObject properties = tmp.getJSONObject("properties");
                 double mag = properties.getDouble("mag");
-//                double mag = 7.2;
                 String place = properties.getString("place");
                 long time = properties.getLong("time");
 //                earthquakes.add(new Earthquake(Double.toString(mag),place,Long.toString(time)));
-                earthquakes.add(new Earthquake(Double.toString(mag), place, sf.format(time)));
+                earthquakes.add(new Earthquake(mag, place, time));
             }
 
         } catch (JSONException e) {

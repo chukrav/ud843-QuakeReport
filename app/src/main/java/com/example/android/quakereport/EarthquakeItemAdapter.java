@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Created by Arkady on 01-May-18.
  */
 
-public class EarthquakeItemAdapter extends ArrayAdapter<Earthquake>{
+public class EarthquakeItemAdapter extends ArrayAdapter<Earthquake> {
 
     private static final String LOG_TAG = EarthquakeItemAdapter.class.getSimpleName();
 
@@ -26,22 +27,47 @@ public class EarthquakeItemAdapter extends ArrayAdapter<Earthquake>{
     public View getView(int position, View convertView, ViewGroup parent) {
 //        return super.getView(position, convertView, parent);
         View listItemView = convertView;
-        if(listItemView == null) {
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
         }
 
         Earthquake currentEQ = getItem(position);
         TextView magnitude_tv = (TextView) listItemView.findViewById(R.id.txt_magnitude);
-        magnitude_tv.setText(currentEQ.getmMagnitude());
+        magnitude_tv.setText(Double.toString(currentEQ.getmMagnitude()));
+
+        String offset = "";
+        String location = currentEQ.getmLoation();
+        int idx = location.indexOf("of");
+        if (idx > 0) {
+            offset = location.substring(0, idx);
+            location = location.substring(idx + 2).trim();
+        }
+
+        TextView offset_tv = (TextView) listItemView.findViewById(R.id.txt_offset);
+        offset_tv.setText(offset);
 
         TextView location_tv = (TextView) listItemView.findViewById(R.id.txt_location);
-        location_tv.setText(currentEQ.getmLoation());
+        location_tv.setText(location);
 
+        Date date = new Date(currentEQ.getmDate());
         TextView date_tv = (TextView) listItemView.findViewById(R.id.txt_date);
-        date_tv.setText(currentEQ.getmDate());
+        date_tv.setText(formatDate(date));
+
+        TextView time_tv = (TextView) listItemView.findViewById(R.id.txt_time);
+        time_tv.setText(formatTime(date));
 
         return listItemView;
 
+    }
+
+    private String formatDate(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+        return dateFormat.format(dateObject);
+    }
+
+    private String formatTime(Date dateObject) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        return timeFormat.format(dateObject);
     }
 }
