@@ -7,42 +7,47 @@
 
     <TextView
         android:id="@+id/txt_magnitude"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/magnitude_circle"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@android:color/white"
         android:textSize="16dp"
         tools:text="5.6" />
 
     <TextView
         android:id="@+id/txt_offset"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        tools:text="17 km N of"
-        android:textSize="16dp"/>
+        android:layout_weight="1"
+        android:textSize="16dp"
+        android:layout_marginLeft="16dp"
+        tools:text="17 km N of" />
 
     <TextView
         android:id="@+id/txt_location"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        tools:text="San Francisco"
-        android:textSize="16dp"/>
+        android:layout_weight="1"
+        android:textSize="16dp"
+        tools:text="San Francisco" />
 
     <TextView
         android:id="@+id/txt_date"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        tools:text="14 Feb, 2018"
-        android:textSize="16dp"/>
+        android:layout_weight="1"
+        android:textSize="16dp"
+        tools:text="14 Feb, 2018" />
 
     <TextView
         android:id="@+id/txt_time"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        tools:text="3:00 PM"
-        android:textSize="16dp"/>
+        android:layout_weight="1"
+        android:textSize="16dp"
+        tools:text="3:00 PM" />
 
 </LinearLayout>
