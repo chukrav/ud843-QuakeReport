@@ -88,7 +88,8 @@ public class EarthquakeItemAdapter extends ArrayAdapter<Earthquake> {
     private int getMagnitudeColor(double mag) {
         int magnitude1Color; // = ContextCompat.getColor(getContext(), R.color.magnitude1);
 
-        int nCase = (int) mag;
+//        int nCase = (int) mag;
+        int nCase = (int) Math.floor(mag);
 
         switch (nCase) {
             case 0:
