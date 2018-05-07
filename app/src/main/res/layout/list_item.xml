@@ -39,7 +39,7 @@
             android:maxLines="1"
             android:textAllCaps="true"
             android:textColor="@color/textColorEarthquakeDetails"
-            android:textSize="12sp"
+            android:textSize="12dp"
             tools:text="17 km N of" />
 
         <TextView
@@ -48,25 +48,37 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textSize="16dp"
             android:textColor="@color/textColorEarthquakeLocation"
+            android:textSize="16dp"
             tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_date"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="16dp"
-        tools:text="14 Feb, 2018" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txt_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="16dp"
-        tools:text="3:00 PM" />
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textSize="12dp"
+            android:textColor="@color/textColorEarthquakeDetails"
+            tools:text="14 Feb, 2018" />
+
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_gravity="end"
+            android:textSize="12dp"
+            android:textColor="@color/textColorEarthquakeDetails"
+            tools:text="3:00 PM" />
+    </LinearLayout>
 
 </LinearLayout>

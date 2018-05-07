@@ -15,8 +15,12 @@
  */
 package com.example.android.quakereport;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -31,16 +35,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
-//        ArrayList<String> earthquakes = new ArrayList<>();
-//        ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
-//        earthquakes.add(new Earthquake("7.2", "San Francisco", "2 Feb, 2016"));
-//        earthquakes.add(new Earthquake("7.2", "London", "2 Feb, 2016"));
-//        earthquakes.add(new Earthquake("7.2", "Tokyo", "2 Feb, 2016"));
-//        earthquakes.add(new Earthquake("7.2", "Mexico City", "2 Feb, 2016"));
-//        earthquakes.add(new Earthquake("7.2", "Moscow", "2 Feb, 2016"));
-//        earthquakes.add(new Earthquake("7.2", "Rio de Janeiro", "2 Feb, 2016"));
-//        earthquakes.add(new Earthquake("7.2", "Paris", "2 Feb, 2016"));
-        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+        final ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 //
         EarthquakeItemAdapter earthquakeItemAdapter = new EarthquakeItemAdapter(this, earthquakes);
 
@@ -55,5 +50,16 @@ public class EarthquakeActivity extends AppCompatActivity {
         // so the list can be populated in the user interface
 
         earthquakeListView.setAdapter(earthquakeItemAdapter);
+        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Earthquake earthquake = earthquakes.get(position);
+                Uri webpage = Uri.parse(earthquake.getmUrl());
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
