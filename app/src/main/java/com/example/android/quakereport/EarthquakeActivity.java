@@ -17,17 +17,25 @@ package com.example.android.quakereport;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
-//    public static final String LOG_TAG = EarthquakeActivity.class.getName();
+    public static final String LOG_TAG = EarthquakeActivity.class.getName();
+
+    private List<Earthquake> earthquakes;
+    private EarthquakeItemAdapter earthquakeItemAdapter;
+    private static final String USGS_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    private String SAMPLE_JSON_RESPONSE;
+    private ListView earthquakeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +43,13 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
-        final List<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+//        SAMPLE_JSON_RESPONSE = QueryUtils.fetchEarthquakeData(USGS_URL);
+//        earthquakes = QueryUtils.extractEarthquakes(SAMPLE_JSON_RESPONSE);
 //
-        EarthquakeItemAdapter earthquakeItemAdapter = new EarthquakeItemAdapter(this, earthquakes);
+        earthquakeItemAdapter = new EarthquakeItemAdapter(this, new ArrayList<Earthquake>());
 
         // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
+        earthquakeListView = (ListView) findViewById(R.id.list);
 
         // Create a new {@link ArrayAdapter} of earthquakes
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -61,5 +70,27 @@ public class EarthquakeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
+
+        @Override
+        protected List<Earthquake> doInBackground(String... strings) {
+
+            SAMPLE_JSON_RESPONSE = QueryUtils.fetchEarthquakeData(USGS_URL);
+            earthquakes = QueryUtils.extractEarthquakes(SAMPLE_JSON_RESPONSE);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<Earthquake> earthquakes) {
+            super.onPostExecute(earthquakes);
+            earthquakeItemAdapter.clear();
+            if (earthquakes != null && !earthquakes.isEmpty()){
+                earthquakeItemAdapter.addAll(earthquakes);
+            }
+
+        }
     }
 }
