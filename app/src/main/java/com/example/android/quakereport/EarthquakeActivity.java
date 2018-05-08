@@ -23,7 +23,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
@@ -35,7 +35,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
-        final ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+        final List<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 //
         EarthquakeItemAdapter earthquakeItemAdapter = new EarthquakeItemAdapter(this, earthquakes);
 
