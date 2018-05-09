@@ -177,7 +177,7 @@ public class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
-
+        Log.v(LOG_TAG,"***In fetchEarthquakeData");
 
         return jsonResponse;
     }

@@ -21,6 +21,7 @@ import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -61,7 +62,8 @@ public class EarthquakeActivity extends AppCompatActivity
         // so the list can be populated in the user interface
 
         earthquakeListView.setAdapter(earthquakeItemAdapter);
-        getLoaderManager().initLoader(0,null,this).forceLoad();
+//        getLoaderManager().initLoader(0,null,this).forceLoad();
+        getLoaderManager().initLoader(0,null,this);  // WO forceLoad() working as well :)
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -77,7 +79,7 @@ public class EarthquakeActivity extends AppCompatActivity
 
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
-
+        Log.v(LOG_TAG,"***In onCreateLoader");
         return new EarthquakeLoader(this, USGS_URL);
     }
 
@@ -88,11 +90,13 @@ public class EarthquakeActivity extends AppCompatActivity
             earthquakeItemAdapter.addAll(earthquakes);
             mEarthquakes = earthquakes;
         }
+        Log.v(LOG_TAG,"***In onLoadFinished");
     }
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
         earthquakeItemAdapter.clear();
+        Log.v(LOG_TAG,"***In onLoaderReset (Clear adapter)");
     }
 
 
