@@ -26,4 +26,9 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
         super.onStartLoading();
         forceLoad();
     }
+
+    @Override
+    protected void onStopLoading() {
+        super.onStopLoading();
+    }
 }

@@ -29,11 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity
-        implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Earthquake>> {
+        implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
-    private List<Earthquake> earthquakes;
+    private List<Earthquake> mEarthquakes;
     private EarthquakeItemAdapter earthquakeItemAdapter;
     private static final String USGS_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
     private String SAMPLE_JSON_RESPONSE;
@@ -61,11 +61,11 @@ public class EarthquakeActivity extends AppCompatActivity
         // so the list can be populated in the user interface
 
         earthquakeListView.setAdapter(earthquakeItemAdapter);
-        getSupportLoaderManager().initLoader(0,null,this).forceLoad();
+        getLoaderManager().initLoader(0,null,this).forceLoad();
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Earthquake earthquake = earthquakes.get(position);
+                Earthquake earthquake = mEarthquakes.get(position);
                 Uri webpage = Uri.parse(earthquake.getmUrl());
                 Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
                 if (intent.resolveActivity(getPackageManager()) != null) {
@@ -82,17 +82,19 @@ public class EarthquakeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoadFinished(android.support.v4.content.Loader<List<Earthquake>> loader, List<Earthquake> data) {
+    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
         earthquakeItemAdapter.clear();
         if (earthquakes != null && !earthquakes.isEmpty()) {
             earthquakeItemAdapter.addAll(earthquakes);
+            mEarthquakes = earthquakes;
         }
     }
 
     @Override
-    public void onLoaderReset(android.support.v4.content.Loader<List<Earthquake>> loader) {
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
         earthquakeItemAdapter.clear();
     }
+
 
 
 
