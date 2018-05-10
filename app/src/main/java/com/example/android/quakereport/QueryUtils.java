@@ -167,6 +167,12 @@ public class QueryUtils {
     }
 
     public static String fetchEarthquakeData(String requestUrl) {
+        try{
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // Create URL object
         URL url = createUrl(requestUrl);
 
