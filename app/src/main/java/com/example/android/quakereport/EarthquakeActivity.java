@@ -26,6 +26,8 @@ import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -34,6 +36,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.android.quakereport.R.*;
 
 public class EarthquakeActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
@@ -50,7 +54,7 @@ public class EarthquakeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.earthquake_activity);
+        setContentView(layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
 //        SAMPLE_JSON_RESPONSE = QueryUtils.fetchEarthquakeData(USGS_URL);
@@ -59,11 +63,11 @@ public class EarthquakeActivity extends AppCompatActivity
         earthquakeItemAdapter = new EarthquakeItemAdapter(this, new ArrayList<Earthquake>());
 
         // Find a reference to the {@link ListView} in the layout
-        earthquakeListView = (ListView) findViewById(R.id.list);
-        mProgress = (ProgressBar) findViewById(R.id.indeterminateBar);
+        earthquakeListView = (ListView) findViewById(id.list);
+        mProgress = (ProgressBar) findViewById(id.indeterminateBar);
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        TextView emptyView = (TextView) findViewById(R.id.empty);
+        TextView emptyView = (TextView) findViewById(id.empty);
 
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
             // Set the adapter on the {@link ListView}
@@ -103,7 +107,7 @@ public class EarthquakeActivity extends AppCompatActivity
             mEarthquakes = earthquakes;
         }
         Log.v(LOG_TAG, "***In onLoadFinished");
-        TextView emptyScreen = (TextView) findViewById(R.id.empty);
+        TextView emptyScreen = (TextView) findViewById(id.empty);
         emptyScreen.setText("Nothing was loaded! :(");
         mProgress.setVisibility(View.GONE);
     }
@@ -114,5 +118,20 @@ public class EarthquakeActivity extends AppCompatActivity
         Log.v(LOG_TAG, "***In onLoaderReset (Clear adapter)");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
