@@ -19,11 +19,13 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -46,7 +48,8 @@ public class EarthquakeActivity extends AppCompatActivity
 
     private List<Earthquake> mEarthquakes;
     private EarthquakeItemAdapter earthquakeItemAdapter;
-    private static final String USGS_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+//    private static final String USGS_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    private static final String USGS_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
     private String SAMPLE_JSON_RESPONSE;
     private ListView earthquakeListView;
     private ProgressBar mProgress;
@@ -95,8 +98,20 @@ public class EarthquakeActivity extends AppCompatActivity
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
         Log.v(LOG_TAG, "***In onCreateLoader");
-//        mProgress.setVisibility(View.VISIBLE);
-        return new EarthquakeLoader(this, USGS_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String minMagnitude = sharedPrefs.getString(
+                getString(R.string.settings_min_magnitude_key),
+                getString(R.string.settings_min_magnitude_default));
+        Uri baseUri = Uri.parse(USGS_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("format", "geojson");
+        uriBuilder.appendQueryParameter("limit", "10");
+        uriBuilder.appendQueryParameter("minmag", minMagnitude);
+        uriBuilder.appendQueryParameter("orderby", "time");
+
+        return new EarthquakeLoader(this, uriBuilder.toString());
+//        return new EarthquakeLoader(this, USGS_URL);
     }
 
     @Override
